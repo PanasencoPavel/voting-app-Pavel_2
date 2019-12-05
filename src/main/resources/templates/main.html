@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Best CoffeeShop</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<h1>Find best place for you!</h1>
+<img th:src="@{/images/coffee.jpg} "/>
+<div th:each="feedback : ${feedbacks}">
+    <span th:text="${feedback.id}"> Number </span>
+    <span th:text="${feedback.headingText}"> Heading </span>
+    <span th:text="${feedback.feedbackText}"> Text </span>
+    <span th:text="${feedback.getUser().getFirstName()}"> User </span>
+</div>
+<form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
