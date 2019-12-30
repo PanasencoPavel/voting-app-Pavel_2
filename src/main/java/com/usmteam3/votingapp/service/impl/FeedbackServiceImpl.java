@@ -17,22 +17,23 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class FeedbackServiceImpl implements FeedbackService {
+
     private final CoffeeShopRepository coffeeShopRepository;
+
     private final FeedbackRepository feedbackRepository;
-    private final UserRepository userRepository;
 
     @Transactional
     public void addFeedback(Feedback feedback) {
         feedbackRepository.save(feedback);
     }
 
+    @Transactional
     public List<Feedback> getAllFeedbackByUserId(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        return feedbackRepository.getAllFeedbackByUserId(user.get());
+        return feedbackRepository.getAllFeedbackByUserId(userId);
     }
 
+    @Transactional
     public List<Feedback> getAllFeedbackByCoffeeShopId(Long coffeeShopId) {
-        Optional<CoffeeShop> coffeeShop = coffeeShopRepository.findById(coffeeShopId);
-        return feedbackRepository.getAllFeedbackByCoffeeShopId(coffeeShop.get());
+        return feedbackRepository.getAllFeedbackByCoffeeShopId(coffeeShopId);
     }
 }
