@@ -1,7 +1,6 @@
 package com.usmteam3.votingapp.service.impl;
 
 import com.usmteam3.votingapp.dao.CoffeeShopRepository;
-import com.usmteam3.votingapp.dao.RatingRepository;
 import com.usmteam3.votingapp.model.CoffeeShop;
 import com.usmteam3.votingapp.service.CoffeeShopService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     @Transactional
     public Optional<CoffeeShop> getCoffeeShopById(Long coffeeShopId) {
         Optional<CoffeeShop> coffeeShop = coffeeShopRepository.findById(coffeeShopId);
-        return  coffeeShop;
+        return coffeeShop;
     }
 
 

@@ -1,5 +1,6 @@
 package com.usmteam3.votingapp.controller;
 
+import com.usmteam3.votingapp.dto.ShopRaitingDto;
 import com.usmteam3.votingapp.model.CoffeeShop;
 import com.usmteam3.votingapp.model.Feedback;
 import com.usmteam3.votingapp.model.Rating;
@@ -7,14 +8,19 @@ import com.usmteam3.votingapp.model.User;
 import com.usmteam3.votingapp.service.impl.CoffeeShopServiceImpl;
 import com.usmteam3.votingapp.service.impl.RatingServiceImpl;
 import com.usmteam3.votingapp.util.NoteConverter;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,24 +33,25 @@ public class CoffeeShopController {
     @Autowired
     private RatingServiceImpl ratingService;
 
+    @Value("${upload.path}")
+    private String uploadPath;
+
     @GetMapping("/shop/{id}")
     public String coffeePage(@PathVariable Long id, Map<String, Object> model) {
         CoffeeShop coffeeShop = coffeeShopService.getCoffeeShopById(id).get();
         Iterable<Rating> ratings = ratingService.getAllRatingsByCoffeeShopId(id);
-        Double avgRaiting = ratingService.getAvgRating(id);
-        Double avgCoffee = ratingService.getAvgCoffeeRating(id);
-        Double avgS = ratingService.getAvgServiceRating(id);
-        Double avgF = ratingService.getAvgAtmosphereRating(id);
-        Double avgA = ratingService.getAvgFoodRating(id);
 
-        model.put("avgCoffee",avgCoffee);
-        model.put("avgS",avgS);
-        model.put("avgF",avgF);
-        model.put("avgA",avgA);
+        ModelMapper modelMapper = new ModelMapper();
+        ShopRaitingDto shop = new ShopRaitingDto();
+        modelMapper.map(coffeeShop, shop);
+        shop.setAvgCoffee(ratingService.getAvgCoffeeRating(id));
+        shop.setAvgFood(ratingService.getAvgFoodRating(id));
+        shop.setAvgAtmosphere(ratingService.getAvgAtmosphereRating(id));
+        shop.setAvgService(ratingService.getAvgServiceRating(id));
+        shop.setAvg(ratingService.getAvgRating(id));
 
-        model.put("avg", avgRaiting);
         model.put("ratings", ratings);
-        model.put("coffeeShop", coffeeShop);
+        model.put("coffeeShop", shop);
 
         return "coffee";
     }
@@ -68,28 +75,39 @@ public class CoffeeShopController {
             @RequestParam Integer foodNote,
             @RequestParam Integer atmosphereNote,
             @RequestParam Integer serviceNote,
-            Map<String, Object> model) {
+            @RequestParam Map<String, Object> model,
+            @RequestParam("file") MultipartFile file) throws IOException {
 
         CoffeeShop coffeeShop1 = coffeeShopService.getCoffeeShopById(id).get();
 
-        Feedback feedback = new Feedback();
-        feedback.setFeedbackText(feedbackText);
-        feedback.setCoffeeShop(coffeeShop1);
-        feedback.setFeedbackText(feedbackText);
-        feedback.setHeadingText(headingText);
-        feedback.setUser(user);
+        Feedback feedback = Feedback.builder()
+                .feedbackText(feedbackText)
+                .headingText(headingText)
+                .coffeeShop(coffeeShop1)
+                .user(user)
+                .build();
 
         NoteConverter noteConverter = new NoteConverter();
-        Rating rating = new Rating();
-        rating.setCoffeeShop(coffeeShop1);
-        rating.setUser(user);
-        rating.setCoffeeNote(noteConverter.convertToEntityAttribute(coffeeNote));
-        rating.setFoodNote(noteConverter.convertToEntityAttribute(foodNote));
-        rating.setAtmosphereNote(noteConverter.convertToEntityAttribute(atmosphereNote));
-        rating.setServiceNote(noteConverter.convertToEntityAttribute(serviceNote));
-        rating.setFeedback(feedback);
-        ratingService.addRating(rating);
+        Rating rating = Rating.builder()
+                .coffeeShop(coffeeShop1)
+                .user(user)
+                .feedback(feedback)
+                .coffeeNote(noteConverter.convertToEntityAttribute(coffeeNote))
+                .foodNote(noteConverter.convertToEntityAttribute(foodNote))
+                .atmosphereNote(noteConverter.convertToEntityAttribute(atmosphereNote))
+                .serviceNote(noteConverter.convertToEntityAttribute(serviceNote))
+                .build();
 
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadFile = new File(uploadPath);
+            if (!uploadFile.exists()) {
+                uploadFile.mkdir();
+            }
+            file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
+            rating.setFilename(file.getOriginalFilename());
+        }
+
+        ratingService.addRating(rating);
         Iterable<Rating> ratings = ratingService.getAllRatingsByCoffeeShopId(id);
 
         model.put("ratings", ratings);
@@ -97,5 +115,4 @@ public class CoffeeShopController {
 
         return "redirect:/shop/{id}";
     }
-
 }

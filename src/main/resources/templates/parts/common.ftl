@@ -8,6 +8,7 @@
     <head>
         <title>RateTheCup</title>
         <link rel="stylesheet" href="/css/styles.css">
+        <link rel="icon" type="image/ico" href="/images/logo2.jpg">
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -51,5 +52,8 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     </body>
+<footer class="container">
+    <p>©RateTheCup Endava School 2019-2020</p>
+</footer>
     </html>
 </#macro>

@@ -4,6 +4,8 @@
 <head>
     <title>RateTheCup</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/ico" href="/images/logo2.jpg">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

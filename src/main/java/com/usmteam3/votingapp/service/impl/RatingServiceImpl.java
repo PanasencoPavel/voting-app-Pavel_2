@@ -30,16 +30,24 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Transactional
-    public Double getAvgFoodRating(Long coffeeShopId) { return ratingRepository.getAvgFoodRating(coffeeShopId); }
+    public Double getAvgFoodRating(Long coffeeShopId) {
+        return ratingRepository.getAvgFoodRating(coffeeShopId);
+    }
 
     @Transactional
-    public Double getAvgAtmosphereRating(Long coffeeShopId) { return ratingRepository.getAvgAtmosphereRating(coffeeShopId); }
+    public Double getAvgAtmosphereRating(Long coffeeShopId) {
+        return ratingRepository.getAvgAtmosphereRating(coffeeShopId);
+    }
 
     @Transactional
-    public Double getAvgServiceRating(Long coffeeShopId) { return ratingRepository.getAvgServiceRating(coffeeShopId); }
+    public Double getAvgServiceRating(Long coffeeShopId) {
+        return ratingRepository.getAvgServiceRating(coffeeShopId);
+    }
 
     @Transactional
-    public Double getAvgCoffeeRating(Long coffeeShopId) { return ratingRepository.getAvgCoffeeRating(coffeeShopId); }
+    public Double getAvgCoffeeRating(Long coffeeShopId) {
+        return ratingRepository.getAvgCoffeeRating(coffeeShopId);
+    }
 
     @Transactional
     public List<Rating> getAllRatingsByUserId(Long userId) {

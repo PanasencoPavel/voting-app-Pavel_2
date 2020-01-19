@@ -6,9 +6,8 @@
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <div class="container">
                 <h1 class="display-4">${shop.getName()}
-                    <#list 1..shop.getAvg() as i>
-                        <div class="stars-outer" style="font-size: .40em; ">
-                            <div class="stars-inner"></div>
+                    <#list 1..(shop.getAvg())?round as i>
+                        <div class="stars-outer" style="font-size: .30em; ">
                         </div>
                     </#list>
                     <button class="btn btn-sm btn-warning">${shop.getAvg()} / 5.0</button>

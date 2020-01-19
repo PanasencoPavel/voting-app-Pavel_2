@@ -1,8 +1,6 @@
 package com.usmteam3.votingapp.dao;
 
-import com.usmteam3.votingapp.model.CoffeeShop;
 import com.usmteam3.votingapp.model.Feedback;
-import com.usmteam3.votingapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

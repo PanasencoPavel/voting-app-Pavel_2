@@ -3,13 +3,14 @@
     <div class="jumbotron text-center my-3">
         <div class="header">
             <a>
-                <img src="/images/logo2.jpg" width="80" height="80" class="d-inline-block align-top" alt="">
+                <img src="/images/logo2.jpg" width="80" height="80" class="d-inline-block align-top" alt="" >
             </a>
             <h3>Sign up and start your journey!</h3>
         </div>
 
+
         <form method="POST" action="/register">
-            <div class="form-group ">
+                <div class="form-group ">
                 <label for="userName"><input type="text" name="username" class="form-control" placeholder="Username"
                                              size="40" required="required"/></label>
             </div>
@@ -21,6 +22,9 @@
                 <label for="firstName"> <input type="text" name="firstName" class="form-control" placeholder="Firstname"
                                                size="40" required="required"/></label>
             </div>
+            <#if message??>
+                ${message}
+            </#if>
             <div class="form-group">
                 <label for="email"> <input type="text" name="email" class="form-control" placeholder="Email" size="40"
                                            required="required"/></label>

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/register")
@@ -37,12 +36,12 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String processRegistration(User user, Map<String,Object> model) {
+    public String processRegistration(User user, Map<String, Object> model) {
         User userFromDb = userRepository.findByEmail(user.getEmail());
 
         if (userFromDb != null) {
-                    model.put("message","User exists!");
-            return "registration";
+            model.put("message", "That email already exists! Please write another one");
+            return "register";
         }
 
         user.setActive(true);
@@ -50,6 +49,5 @@ public class RegistrationController {
         userService.addNewUser(user);
 
         return "redirect:/login";
-
     }
 }

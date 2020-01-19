@@ -1,8 +1,10 @@
 package com.usmteam3.votingapp.controller;
 
 import com.usmteam3.votingapp.dao.UserRepository;
+import com.usmteam3.votingapp.model.Rating;
 import com.usmteam3.votingapp.model.User;
 import com.usmteam3.votingapp.model.enums.Role;
+import com.usmteam3.votingapp.service.impl.RatingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,28 +18,48 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
-//@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private RatingServiceImpl ratingService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String userList(Model model) {
+
         model.addAttribute("users", userRepository.findAll());
 
         return "userList";
     }
 
-    @GetMapping("{user}")
+    @GetMapping("{user}/edit")
     public String userEdit(@PathVariable User user, Model model) {
+
+        Iterable<Rating> ratings = ratingService.getAllRatingsByUserId(user.getId());
+
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+        model.addAttribute("ratings", ratings);
 
         return "userEdit";
     }
 
-    @PostMapping
+    @GetMapping("{user}")
+    public String userProfile(@PathVariable User user, Model model) {
+
+        Iterable<Rating> ratings = ratingService.getAllRatingsByUserId(user.getId());
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("ratings", ratings);
+
+        return "userProfile";
+    }
+
+    @PostMapping("/edit")
     public String userSave(
             @RequestParam String firstName,
             @RequestParam String lastName,
@@ -58,10 +80,9 @@ public class UserController {
                 user.getRoles().add(Role.valueOf(key));
             }
         }
-
         userRepository.save(user);
 
-        return "redirect:/user";
+        return "redirect:/user/{user}";
     }
 }
 

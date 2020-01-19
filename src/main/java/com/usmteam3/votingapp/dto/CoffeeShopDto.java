@@ -17,6 +17,4 @@ public class CoffeeShopDto {
 
     private Double avg;
 
-    private Double avgCoffee;
-
 }

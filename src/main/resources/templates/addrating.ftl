@@ -2,7 +2,7 @@
 <@c.page>
     <div class="jumbotron text-center my-3">
         <h3>Rate the shop</h3>
-        <form method="post" action="/shop/${coffeeShop.get().getId()}/addrating">
+        <form method="post" action="/shop/${coffeeShop.get().getId()}/addrating" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <div class="input-group mb-3">
                 <label>
@@ -49,6 +49,9 @@
                             <option>5</option>
                         </select>
                     </label></div>
+            </div>
+            <div class="input-group my-3">
+                <input class="form-control btn" type="file" name="file">
             </div>
             <div class="input-group mb-3 my-3">
                 <button type="submit" class="btn btn-success ">Submit</button>

@@ -22,9 +22,6 @@ public class MainController {
     @Autowired
     private RatingServiceImpl ratingService;
 
-//    @Value("${upload.path}")
-//    private String uploadPath;
-
     @GetMapping("/")
     public String greeting() {
         return "redirect:/main";
@@ -49,5 +46,4 @@ public class MainController {
 
         return "main";
     }
-
 }

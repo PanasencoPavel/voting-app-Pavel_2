@@ -2,13 +2,19 @@ package com.usmteam3.votingapp.model;
 
 import com.usmteam3.votingapp.model.enums.Note;
 import com.usmteam3.votingapp.util.NoteConverter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "rate")
 public class Rating implements Serializable {
 
@@ -44,5 +50,8 @@ public class Rating implements Serializable {
     @Column(name = "atmosphere_note")
     @Convert(converter = NoteConverter.class)
     private Note atmosphereNote;
+
+    @Column(name = "filename")
+    private String filename;
 
 }
