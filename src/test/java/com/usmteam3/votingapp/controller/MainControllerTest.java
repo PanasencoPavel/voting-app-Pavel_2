@@ -1,22 +1,20 @@
-package com.usmteam3.votingapp;
+package com.usmteam3.votingapp.controller;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static javax.swing.UIManager.get;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CoffeeAppApplicationTests {
+public class MainControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    public void contextLoads() {
+    public void greeting() throws Exception {
+//        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk)
     }
-
 }
