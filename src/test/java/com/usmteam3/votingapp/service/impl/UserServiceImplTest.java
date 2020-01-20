@@ -2,20 +2,21 @@ package com.usmteam3.votingapp.service.impl;
 
 import com.usmteam3.votingapp.dao.UserRepository;
 import com.usmteam3.votingapp.model.User;
+import com.usmteam3.votingapp.model.enums.Role;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class UserServiceImplTest {
 
     @Mock
@@ -35,6 +36,7 @@ public class UserServiceImplTest {
         user.setId(1L);
         user.setFirstName(NAME);
         user.setEmail(MAIL);
+        user.setRoles(Collections.singleton(Role.USER));
 
         //Act
         userService.addNewUser(user);
@@ -50,6 +52,7 @@ public class UserServiceImplTest {
         user.setId(1L);
         user.setFirstName(NAME);
         user.setEmail(MAIL);
+        user.setRoles(Collections.singleton(Role.USER));
         userService.addNewUser(user);
 
         List<User> expectedUserList = new ArrayList<>();
@@ -63,8 +66,6 @@ public class UserServiceImplTest {
         //Assert
         verify(userRepository, times(1)).findAll();
         verify(userRepository, times(1)).save(user);
-
-
     }
 
     @Test
@@ -73,6 +74,7 @@ public class UserServiceImplTest {
         user.setId(1L);
         user.setFirstName(NAME);
         user.setEmail(MAIL);
+        user.setRoles(Collections.singleton(Role.USER));
         userService.addNewUser(user);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));

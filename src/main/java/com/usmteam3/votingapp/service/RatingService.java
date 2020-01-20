@@ -12,4 +12,14 @@ public interface RatingService  {
 
     List<Rating> getAllRatingsByUserId(Long userId);
 
+    Double getAvgCoffeeRating(Long coffeeShopId);
+
+    Double getAvgFoodRating(Long coffeeShopId);
+
+    Double getAvgAtmosphereRating(Long coffeeShopId);
+
+    Double getAvgServiceRating(Long coffeeShopId);
+
+
+
 }

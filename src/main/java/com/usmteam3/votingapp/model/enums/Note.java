@@ -1,5 +1,6 @@
 package com.usmteam3.votingapp.model.enums;
 
+
 public enum Note {
 
     ONE(1),
@@ -18,7 +19,7 @@ public enum Note {
         this.noteValue = intValue;
     }
 
-    public int showNote() {
+    public Integer showNote() {
         return noteValue;
     }
 }
