@@ -8,7 +8,7 @@
             <h1 class="display-4">${coffeeShop.name}</h1>
             <h6 class="lead">${coffeeShop.getDescription()}</h6>
             <h6 class="lead">${coffeeShop.getAddress()}</h6><br>
-            <h5> Average Raiting: ${coffeeShop.avg} </h5>
+            <h5> Average Raiting: #{coffeeShop.getAvg(); M2} </h5>
             <div>
                 <#list 1..(coffeeShop.avgCoffee)?round as i>
                     <div class="stars-outer">

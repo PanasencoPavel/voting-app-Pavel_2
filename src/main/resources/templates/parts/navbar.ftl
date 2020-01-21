@@ -14,7 +14,7 @@
             </li>
             <#if isAdmin>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user">UserList</a>
+                    <a class="nav-link" href="/user/edit">UserList</a>
                 </li>
             </#if>
         </ul>

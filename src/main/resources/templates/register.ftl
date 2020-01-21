@@ -26,16 +26,16 @@
                 ${message}
             </#if>
             <div class="form-group">
-                <label for="email"> <input type="text" name="email" class="form-control" placeholder="Email" size="40"
+                <label for="email"> <input type="email" name="email" class="form-control" placeholder="Email" size="40"
                                            required="required"/></label>
             </div>
             <div class="form-group">
                 <label for="password"> <input type="password" name="password" class="form-control"
-                                              placeholder="Password" size="40" required="required"/></label>
+                                              placeholder="Password" size="40" required="required" minlength="8"/></label>
             </div>
             <div class="form-group">
                 <label for="confirm"><input type="password" name="confirm" placeholder="Confirm Password"
-                                            class="form-control"
+                                            class="form-control" minlength="8"
                                             size="40" required="required"/></label>
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>

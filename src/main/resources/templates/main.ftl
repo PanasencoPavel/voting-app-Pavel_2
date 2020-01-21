@@ -10,7 +10,7 @@
                         <div class="stars-outer" style="font-size: .30em; ">
                         </div>
                     </#list>
-                    <button class="btn btn-sm btn-warning">${shop.getAvg()} / 5.0</button>
+                    <button class="btn btn-sm btn-warning">#{shop.getAvg(); M2} / 5.0</button>
                 </h1>
                 <br/>
                 <h6 class="lead">${shop.getDescription()}</h6><br/><br>

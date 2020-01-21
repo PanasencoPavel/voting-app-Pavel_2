@@ -1,8 +1,6 @@
 package com.usmteam3.votingapp.service.impl;
 
-import com.usmteam3.votingapp.dao.CoffeeShopRepository;
 import com.usmteam3.votingapp.dao.FeedbackRepository;
-import com.usmteam3.votingapp.dao.UserRepository;
 import com.usmteam3.votingapp.model.CoffeeShop;
 import com.usmteam3.votingapp.model.Feedback;
 import com.usmteam3.votingapp.model.User;
@@ -16,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -27,12 +24,6 @@ public class FeedbackServiceImplTest {
 
     @Mock
     private FeedbackRepository feedbackRepository;
-
-    @Mock
-    private CoffeeShopRepository coffeeShopRepository;
-
-    @Mock
-    private UserRepository userRepository;
 
     @InjectMocks
     private FeedbackServiceImpl feedbackService;
@@ -73,7 +64,7 @@ public class FeedbackServiceImplTest {
         List<Feedback> expectedFeedbackList = new ArrayList<>();
         expectedFeedbackList.add(feedback);
 
-                when(feedbackRepository.getAllFeedbackByUserId(user.getId())).thenReturn(expectedFeedbackList);
+        when(feedbackRepository.getAllFeedbackByUserId(user.getId())).thenReturn(expectedFeedbackList);
 
         List<Feedback> returnedFeedbackList = feedbackService.getAllFeedbackByUserId(1L);
 
